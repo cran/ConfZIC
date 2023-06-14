@@ -4,7 +4,7 @@
 \alias{regZIC.test}
 \title{Test whether two ZIC values differ significantly based on minimum ZIC for regression data}
 \usage{
-regZIC.test(model1, model2, model_ZIC, data, alpha)
+regZIC.test(model1,model2,model_ZIC="AIC",data,alpha=0.05)
 }
 \arguments{
 \item{model1}{an object of class ``lm".}

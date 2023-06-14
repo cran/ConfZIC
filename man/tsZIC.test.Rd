@@ -4,7 +4,7 @@
 \alias{tsZIC.test}
 \title{Test whether two ZIC values differ significantly based on minimum ZIC for time series data}
 \usage{
-tsZIC.test(x,model1,model2,model_ZIC=c("AIC","BIC","AICc"),alpha)
+tsZIC.test(x,model1,model2,model_ZIC="AIC",alpha=0.05)
 }
 \arguments{
 \item{x}{time series data (maximum of 1000 data points).}

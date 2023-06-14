@@ -1,11 +1,10 @@
 #' Rank the regression models based on the confidence envelope for minimum ZIC
 #'
 #' @param data a matrix of \eqn{n} by \eqn{(m+1)} where \eqn{m} is the number of independent variables. First column should be the dependent variable and the rest of the \eqn{m} columns should be the independent variables of the dataset. Maximum of \eqn{m} should be 10.
-#' @param alphaval confidence limit of the confidence envelope.
+#' @param alphaval confidence limit of the confidence envelope (Default is 0.95).
 #' @param model_ZIC type of the information criterion, it can be "AIC", "BIC", or "AICc" (Default is the "AIC").
 #'
 #' @return A list containing at least the following components.
-#'
 #' \item{Ranked_Models}{A set of top ranked models which lie in the confidence envelop \eqn{CE(\alpha)} (with variables list and the ranked ZIC values ("AIC", "BIC", or "AICc")) for regression data.
 #' \eqn{0} represents the coefficient while \eqn{1,2,...,m} give the corresponding columns of independent variables \eqn{X_1,X_2,...,X_m} respectively.}
 #'
@@ -13,12 +12,10 @@
 #'
 #' \item{Confidence_Limit}{the confidence limit, \eqn{1-\alpha}.}
 #'
-#' \item{Tota_Models}{number of total fitted models.}
-#'
+#' \item{Total_Models}{number of total fitted models.}
 #' @export
 #'
 #' @description Narrow down the number of models to look at in model selection using the confidence envelope based on the minimum ZIC values for regression data. Here, we compute the ZIC values ("AIC", "BIC", or "AICc") for regression data, confidence envelope for the minimum ZIC values for the given confidence limit, and rank the best models which lie in the confidence envelope.
-#'
 #'
 #' @details This program involves the computation of multivariate normal-probabilities with covariance matrices based on minimum ZIC inverting the CDF of the minimum ZIC. It involves both the computation of singular and nonsingular probabilities. The methodology is described in Genz (1992).
 #' @details Let \eqn{X_j} be the ZIC value for the \eqn{j^{th}} fitted model. Compute the cdf values of the minimum ZIC, \eqn{F_{X_{(1)}}(\cdot)} numerically and then obtain the \eqn{100\cdot (1-\alpha)\%} confidence envelope:
@@ -26,7 +23,7 @@
 #' @details See details:
 #' @details Jayaweera I.M.L.N, Trindade A.A., ``How Certain are You in Your Minimum AIC and BIC Values?", Sankhya A (2023+)
 #'
-#' @usage RankReg(data,alphaval, model_ZIC=c("AIC","BIC","AICc"))
+#' @usage RankReg(data,alphaval=0.95, model_ZIC="AIC")
 #'
 #' @importFrom cmna bisection
 #' @importFrom stats lm
@@ -51,7 +48,7 @@
 #' }
 
 
-RankReg=function(data,alphaval,model_ZIC=c("AIC","BIC","AICc")){
+RankReg=function(data,alphaval=0.95,model_ZIC="AIC"){
 
 
 
@@ -135,7 +132,7 @@ RankReg=function(data,alphaval,model_ZIC=c("AIC","BIC","AICc")){
 
 
 
-  if (model_ZIC=="AIC" ||missing(model_ZIC)){
+  if (model_ZIC=="AIC"){
     GIC=GIC_AIC
   }
 

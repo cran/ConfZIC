@@ -1,9 +1,9 @@
 #' Rank the time series (ARMA) models based on the confidence envelope for minimum ZIC
 #'
-#' @param x time series data as a vector (should be included with the maximum of 1000 data points).
+#' @param x a vector of time series data (should be included with the maximum of 1000 data points).
 #' @param max.p maximum value for AR coefficient.
 #' @param max.q maximum value for MA coefficient.
-#' @param alphaval confidence limit \eqn{(1-alpha)}.
+#' @param alphaval confidence limit \eqn{(1-\alpha)} (Default is 0.95).
 #' @param model_ZIC type of the information criterion, it can be "AIC", "BIC", or "AICc" (Default is the "AIC").
 #'
 #' @return a list of ranked models which lies in the confidence envelope, \eqn{CE(\alpha).}
@@ -25,7 +25,7 @@
 #' @details See details:
 #' @details Jayaweera I.M.L.N, Trindade A.A., ``How Certain are You in Your Minimum AIC and BIC Values?", Sankhya A (2023+)
 #'
-#' @usage RankTS(x,max.p,max.q,alphaval,model_ZIC=c("AIC","BIC","AICc"))
+#' @usage RankTS(x,max.p,max.q,alphaval=0.95,model_ZIC="AIC")
 #'
 #' @importFrom stats arima
 #' @importFrom stats toeplitz
@@ -47,7 +47,7 @@
 
 
 
-RankTS=function(x,max.p,max.q,alphaval,model_ZIC=c("AIC","BIC","AICc")){
+RankTS=function(x,max.p,max.q,alphaval=0.95,model_ZIC="AIC"){
 
   ###################################
 
@@ -175,7 +175,7 @@ RankTS=function(x,max.p,max.q,alphaval,model_ZIC=c("AIC","BIC","AICc")){
 
 
 
-  if (model_ZIC=="AIC" ||missing(model_ZIC)){
+  if (model_ZIC=="AIC"){
 
     for (u in 1:tot){
       GICVal[u]=A[[u]][[4]]*n

@@ -14,7 +14,7 @@
 #' @details \deqn{Z_0=\frac{(\hat{ZIC_i}-\hat{ZIC_j})-0}{\sqrt{SD(ZIC_i,ZIC_j)}} \sim N(0,1)}  is calculated empirically.
 #'
 #'
-#' @usage tsZIC.test(x,model1,model2,model_ZIC=c("AIC","BIC","AICc"),alpha)
+#' @usage tsZIC.test(x,model1,model2,model_ZIC="AIC",alpha=0.05)
 #'
 #' @importFrom stats pnorm
 #' @importFrom stats qnorm
@@ -34,7 +34,7 @@
 #' model2=try(arima(x,order=c(1,0,0),method="ML",include.mean=FALSE),silent = TRUE)
 #' tsZIC.test(x,model1,model2,model_ZIC="AIC",alpha=0.05)
 
-tsZIC.test<-function(x,model1,model2,model_ZIC=c("AIC","BIC","AICc"),alpha){
+tsZIC.test<-function(x,model1,model2,model_ZIC="AIC",alpha=0.05){
 
   if (alpha<0 || alpha>1) {stop("Significance level should be between 0 and 1!")}
   if (length(x)>=1000){stop("No of data points are out of range: need to less than 1000")}
@@ -44,7 +44,7 @@ tsZIC.test<-function(x,model1,model2,model_ZIC=c("AIC","BIC","AICc"),alpha){
   n=length(x)
   fit1=model1
   fit2=model2
-  if (missing(alpha)) {alpha=0.05}
+
   alpha=alpha
 
   phival1=fit1$model$phi
@@ -74,7 +74,7 @@ tsZIC.test<-function(x,model1,model2,model_ZIC=c("AIC","BIC","AICc"),alpha){
   pt1=length(fit1$coef)
   pt2=length(fit2$coef)
 
-  if (model_ZIC=="AIC" ||missing(model_ZIC)){
+  if (model_ZIC=="AIC"){
     GIC1=(-2/n) * fit1$loglik +pt1/n
     GIC2=(-2/n) * fit2$loglik +pt2/n
   }

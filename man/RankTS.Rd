@@ -4,16 +4,16 @@
 \alias{RankTS}
 \title{Rank the time series (ARMA) models based on the confidence envelope for minimum ZIC}
 \usage{
-RankTS(x,max.p,max.q,alphaval,model_ZIC=c("AIC","BIC","AICc"))
+RankTS(x,max.p,max.q,alphaval=0.95,model_ZIC="AIC")
 }
 \arguments{
-\item{x}{time series data as a vector (should be included with the maximum of 1000 data points).}
+\item{x}{a vector of time series data (should be included with the maximum of 1000 data points).}
 
 \item{max.p}{maximum value for AR coefficient.}
 
 \item{max.q}{maximum value for MA coefficient.}
 
-\item{alphaval}{confidence limit \eqn{(1-alpha)}.}
+\item{alphaval}{confidence limit \eqn{(1-\alpha)} (Default is 0.95).}
 
 \item{model_ZIC}{type of the information criterion, it can be "AIC", "BIC", or "AICc" (Default is the "AIC").}
 }

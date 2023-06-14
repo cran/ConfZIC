@@ -13,6 +13,8 @@
 #' @details \deqn{H_0: ZIC_i=ZIC_j     ,    H_1: ZIC_i\neq ZIC_j}
 #' @details \deqn{Z_0=\frac{(\hat{ZIC_i}-\hat{ZIC_j})-0}{\sqrt{SD(ZIC_i,ZIC_j)}}\sim N(0,1)}  is calculated empirically.
 #'
+#' @usage regZIC.test(model1,model2,model_ZIC="AIC",data,alpha=0.05)
+#'
 #' @importFrom stats pnorm
 #' @importFrom stats qnorm
 #' @references Linhart, H. (1988). A test whether two AIC's differ significantly. South African Statistical Journal, 22(2), 153-161.
@@ -28,7 +30,7 @@
 #' regZIC.test(model1,model2,model_ZIC="BIC",data=mydata,alpha=0.05)
 
 
-regZIC.test<-function(model1,model2,model_ZIC,data,alpha){
+regZIC.test<-function(model1,model2,model_ZIC="AIC",data,alpha=0.05){
   Y=NULL
 
   if (alpha<0 || alpha>1) {stop("Significance level should be between 0 and 1!")}
@@ -40,11 +42,11 @@ regZIC.test<-function(model1,model2,model_ZIC,data,alpha){
   alpha=alpha
 
   model_ZIC=model_ZIC
-  if (missing(alpha)) {alpha=0.05}
+
   M1=model1; M2=model2;
 
 
-  if (model_ZIC=="AIC" ||missing(model_ZIC)){
+  if (model_ZIC=="AIC"){
     GIC1=(-2/n) *(-logLik(M1)) +2*M1$rank/n
     GIC2=(-2/n) *(-logLik(M2)) +2*M2$rank/n
   }
